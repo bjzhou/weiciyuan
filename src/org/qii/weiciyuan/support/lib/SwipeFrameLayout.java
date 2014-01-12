@@ -49,7 +49,7 @@ public class SwipeFrameLayout extends FrameLayout {
 
     private void init() {
         scroller = new OverScroller(getContext(), new DecelerateInterpolator());
-        setBackground(ThemeUtility.getDrawable(android.R.attr.windowBackground));
+        setBackgroundDrawable(ThemeUtility.getDrawable(android.R.attr.windowBackground));
         this.activity = (Activity) getContext();
         this.topView = ((View) (activity.findViewById(android.R.id.content).getParent()));
         this.max_motion_event_down_x_position = Utility.dip2px(25);

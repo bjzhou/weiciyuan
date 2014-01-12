@@ -1,8 +1,5 @@
 package org.qii.weiciyuan.ui.browser;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.maps.MapsInitializer;
-
 import org.qii.weiciyuan.R;
 import org.qii.weiciyuan.bean.CommentListBean;
 import org.qii.weiciyuan.bean.GeoBean;
@@ -36,11 +33,13 @@ import org.qii.weiciyuan.ui.loader.CommentsByIdMsgLoader;
 import org.qii.weiciyuan.ui.loader.RepostByIdMsgLoader;
 import org.qii.weiciyuan.ui.userinfo.UserInfoActivity;
 
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.LoaderManager;
@@ -61,6 +60,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.maps.MapsInitializer;
 
 /**
  * User: qii
@@ -587,15 +589,20 @@ public class BrowserWeiboMsgFragment extends AbstractAppFragment implements IRem
         footerView.findViewById(R.id.laod_failed).setVisibility(View.GONE);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     protected void dismissFooterView() {
         final View progressbar = footerView.findViewById(R.id.loading_progressbar);
-        progressbar.animate().scaleX(0).scaleY(0).alpha(0.5f).setDuration(300)
-                .withEndAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressbar.setVisibility(View.GONE);
-                    }
-                });
+        if (Build.VERSION.SDK_INT >= 16) {
+	        progressbar.animate().scaleX(0).scaleY(0).alpha(0.5f).setDuration(300)
+	                .withEndAction(new Runnable() {
+	                    @Override
+	                    public void run() {
+	                        progressbar.setVisibility(View.GONE);
+	                    }
+	                });
+        } else {
+        	progressbar.setVisibility(View.GONE);
+        }
         footerView.findViewById(R.id.laod_failed).setVisibility(View.GONE);
     }
 

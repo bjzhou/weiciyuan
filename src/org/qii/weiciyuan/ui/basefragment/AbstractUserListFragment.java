@@ -16,8 +16,9 @@ import org.qii.weiciyuan.ui.interfaces.AbstractAppFragment;
 import org.qii.weiciyuan.ui.loader.AbstractAsyncNetRequestTaskLoader;
 import org.qii.weiciyuan.ui.loader.DummyLoader;
 import org.qii.weiciyuan.ui.userinfo.UserInfoActivity;
-
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -201,8 +202,10 @@ public abstract class AbstractUserListFragment extends AbstractAppFragment {
         footerView.findViewById(R.id.laod_failed).setVisibility(View.GONE);
     }
 
-    protected void dismissFooterView() {
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	protected void dismissFooterView() {
         final View progressbar = footerView.findViewById(R.id.loading_progressbar);
+        if (Build.VERSION.SDK_INT >= 16) {
         progressbar.animate().scaleX(0).scaleY(0).alpha(0.5f).setDuration(300)
                 .withEndAction(new Runnable() {
                     @Override
@@ -210,6 +213,9 @@ public abstract class AbstractUserListFragment extends AbstractAppFragment {
                         progressbar.setVisibility(View.GONE);
                     }
                 });
+        } else {
+        	progressbar.setVisibility(View.GONE);
+        }
         footerView.findViewById(R.id.laod_failed).setVisibility(View.GONE);
     }
 

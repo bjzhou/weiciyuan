@@ -21,6 +21,8 @@ import org.qii.weiciyuan.ui.interfaces.AbstractAppFragment;
 import org.qii.weiciyuan.ui.loader.AbstractAsyncNetRequestTaskLoader;
 import org.qii.weiciyuan.ui.loader.DummyLoader;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -407,15 +409,20 @@ public abstract class AbstractTimeLineFragment<T extends ListBean> extends Abstr
         footerView.findViewById(R.id.laod_failed).setVisibility(View.GONE);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     protected void dismissFooterView() {
         final View progressbar = footerView.findViewById(R.id.loading_progressbar);
-        progressbar.animate().scaleX(0).scaleY(0).alpha(0.5f).setDuration(300)
-                .withEndAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressbar.setVisibility(View.GONE);
-                    }
-                });
+        if (Build.VERSION.SDK_INT >= 16) {
+	        progressbar.animate().scaleX(0).scaleY(0).alpha(0.5f).setDuration(300)
+	                .withEndAction(new Runnable() {
+	                    @Override
+	                    public void run() {
+	                        progressbar.setVisibility(View.GONE);
+	                    }
+	                });
+        } else {
+        	progressbar.setVisibility(View.GONE);
+        }
         footerView.findViewById(R.id.laod_failed).setVisibility(View.GONE);
     }
 

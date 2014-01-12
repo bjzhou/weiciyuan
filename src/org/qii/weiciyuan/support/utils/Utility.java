@@ -849,7 +849,7 @@ public class Utility {
                     .getInstance()
                     .getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(NotificationServiceHelper.getTokenExpiredNotificationId(),
-                    builder.build());
+                    builder.getNotification());
         } else if (GlobalContext.getInstance().tokenExpiredDialogIsShowing) {
             NotificationManager notificationManager = (NotificationManager) GlobalContext
                     .getInstance()
@@ -914,15 +914,15 @@ public class Utility {
                     }
                 }
                 iv.setImageBitmap(null);
-                iv.setBackground(null);
+                iv.setBackgroundDrawable(null);
                 continue;
             }
 
-            child.setBackground(null);
+            child.setBackgroundDrawable(null);
 
         }
 
-        viewGroup.setBackground(null);
+        viewGroup.setBackgroundDrawable(null);
     }
 
     public static boolean doThisDeviceOwnNavigationBar(Context context) {
