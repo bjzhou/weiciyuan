@@ -31,7 +31,7 @@ import org.qii.weiciyuan.ui.loader.FriendsMsgLoader;
 import org.qii.weiciyuan.ui.main.LeftMenuFragment;
 import org.qii.weiciyuan.ui.main.MainTimeLineActivity;
 import org.qii.weiciyuan.ui.send.WriteWeiboActivity;
-
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,7 +43,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +55,7 @@ import java.util.concurrent.TimeUnit;
  * User: qii
  * Date: 12-7-29
  */
+@SuppressLint("ValidFragment")
 public class FriendsTimeLineFragment extends AbstractMessageTimeLineFragment<MessageListBean>
         implements GlobalContext.MyProfileInfoChangeListener,
         MainTimeLineActivity.ScrollableListFragment {
@@ -633,12 +633,14 @@ public class FriendsTimeLineFragment extends AbstractMessageTimeLineFragment<Mes
                     loadNewMsg();
                 }
                 break;
+ /*
             case R.id.switch_theme:
                 //make sure activity has saved current left menu position
                 ((MainTimeLineActivity) getActivity()).saveNavigationPositionToDB();
                 SettingUtility.switchToAnotherTheme();
                 ((MainTimeLineActivity) getActivity()).reload();
                 break;
+ */
         }
         return super.onOptionsItemSelected(item);
     }
